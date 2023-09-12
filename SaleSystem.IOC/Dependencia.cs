@@ -7,8 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SaleSystem.DAL.DBContext;
 using Microsoft.EntityFrameworkCore;
-//using SaleSystem.DAL.Interfaces;
-//using SaleSystem.DAL.Implementacion;
+using SaleSystem.DAL.Interfaces;
+using SaleSystem.DAL.Implementacion;
 //using SaleSystem.BLL.Interfaces;
 //using SaleSystem.BLL.Implementacion;
 
@@ -22,6 +22,9 @@ namespace SaleSystem.IOC
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IVentaRepository, VentaRepository>();
         }
     }
 }
